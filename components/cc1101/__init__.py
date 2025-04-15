@@ -15,7 +15,7 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Required("mosi_pin"): cv.int_,
     cv.Required("csn_pin"): cv.int_,
     cv.Required("gdo0_pin"): cv.int_,
-    cv.Required("gdo2_pin"): cv.int_,
+    cv.Required("gdo2_pin"): cv.int_,  # <--- adiciona isto aqui!
     cv.Required("bandwidth"): cv.float_,
     cv.Required("frequency"): cv.float_,
 }).extend(cv.COMPONENT_SCHEMA)
