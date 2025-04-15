@@ -1,16 +1,14 @@
-from esphome import automation
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import sensor
 from esphome.const import CONF_ID
 
 DEPENDENCIES = ["spi"]
 CODEOWNERS = ["@folhas99"]
 
 cc1101_ns = cg.esphome_ns.namespace("cc1101")
-CC1101Component = cc1101_ns.class_("CC1101Component", cg.Component, sensor.Sensor)
+CC1101Component = cc1101_ns.class_("CC1101Component", cg.Component)
 
-CONFIG_SCHEMA = sensor.sensor_schema().extend({
+CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(CC1101Component),
     cv.Required("sck_pin"): cv.int_,
     cv.Required("miso_pin"): cv.int_,
@@ -29,4 +27,3 @@ async def to_code(config):
         config["bandwidth"], config["frequency"]
     )
     await cg.register_component(var, config)
-    await sensor.register_sensor(var, config)
