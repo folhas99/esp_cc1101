@@ -27,22 +27,35 @@ CONF_GDO2_PIN = 33
 CONF_BANDWIDTH = 200
 CONF_FREQUENCY = 433.92
 
-CONFIG_SCHEMA = cv.Schema({
-    cv.GenerateID(): cv.declare_id(CC1101Component),
-    cv.Required(CONF_SCK_PIN): cv.int_,
-    cv.Required(CONF_MISO_PIN): cv.int_,
-    cv.Required(CONF_MOSI_PIN): cv.int_,
-    cv.Required(CONF_CSN_PIN): cv.int_,
-    cv.Required(CONF_GDO0_PIN): cv.int_,
-    cv.Required(CONF_GDO2_PIN): cv.int_,
-    cv.Required(CONF_BANDWIDTH): cv.float_,
-    cv.Required(CONF_FREQUENCY): cv.float_,
-}).extend(cv.COMPONENT_SCHEMA)
-
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID],
-        config[CONF_SCK_PIN], config[CONF_MISO_PIN], config[CONF_MOSI_PIN],
-        config[CONF_CSN_PIN], config[CONF_GDO0_PIN], config[CONF_GDO2_PIN],
-        config[CONF_BANDWIDTH], config[CONF_FREQUENCY]
+                           CONF_SCK_PIN,
+                           CONF_MISO_PIN,
+                           CONF_MOSI_PIN,
+                           CONF_CSN_PIN,
+                           CONF_GDO0_PIN,
+                           CONF_GDO2_PIN,
+                           CONF_BANDWIDTH,
+                           CONF_FREQUENCY
     )
     await cg.register_component(var, config)
+
+#CONFIG_SCHEMA = cv.Schema({
+#    cv.GenerateID(): cv.declare_id(CC1101Component),
+#    cv.Required(CONF_SCK_PIN): cv.int_,
+#    cv.Required(CONF_MISO_PIN): cv.int_,
+#    cv.Required(CONF_MOSI_PIN): cv.int_,
+#    cv.Required(CONF_CSN_PIN): cv.int_,
+#    cv.Required(CONF_GDO0_PIN): cv.int_,
+#    cv.Required(CONF_GDO2_PIN): cv.int_,
+#    cv.Required(CONF_BANDWIDTH): cv.float_,
+#    cv.Required(CONF_FREQUENCY): cv.float_,
+#}).extend(cv.COMPONENT_SCHEMA)
+
+#async def to_code(config):
+#    var = cg.new_Pvariable(config[CONF_ID],
+#        config[CONF_SCK_PIN], config[CONF_MISO_PIN], config[CONF_MOSI_PIN],
+#        config[CONF_CSN_PIN], config[CONF_GDO0_PIN], config[CONF_GDO2_PIN],
+#        config[CONF_BANDWIDTH], config[CONF_FREQUENCY]
+#    )
+#    await cg.register_component(var, config)
