@@ -8,7 +8,6 @@ CODEOWNERS = ["@folhas99"]
 cc1101_ns = cg.esphome_ns.namespace("cc1101")
 CC1101Component = cc1101_ns.class_("CC1101Component", cg.Component)
 
-
 CONF_SCK_PIN = "sck_pin"
 CONF_MISO_PIN = "miso_pin"
 CONF_MOSI_PIN = "mosi_pin"
