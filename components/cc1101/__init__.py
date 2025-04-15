@@ -13,7 +13,7 @@ CONF_MISO_PIN = "miso_pin"
 CONF_MOSI_PIN = "mosi_pin"
 CONF_CSN_PIN = "csn_pin"
 CONF_GDO0_PIN = "gdo0_pin"
-CONF_GDO2_PIN = "gdo2_pin"
+CONF_GD02_PIN = "gdo2_pin"
 CONF_BANDWIDTH = "bandwidth"
 CONF_FREQUENCY = "frequency"
 
@@ -24,7 +24,7 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Required(CONF_MOSI_PIN): cv.int_,
     cv.Required(CONF_CSN_PIN): cv.int_,
     cv.Required(CONF_GDO0_PIN): cv.int_,
-    cv.Required(CONF_GDO2_PIN): cv.int_,
+    cv.Required(CONF_GD02_PIN): cv.int_,
     cv.Required(CONF_BANDWIDTH): cv.float_,
     cv.Required(CONF_FREQUENCY): cv.float_,
 }).extend(cv.COMPONENT_SCHEMA)
@@ -32,7 +32,7 @@ CONFIG_SCHEMA = cv.Schema({
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID],
         config[CONF_SCK_PIN], config[CONF_MISO_PIN], config[CONF_MOSI_PIN],
-        config[CONF_CSN_PIN], config[CONF_GDO0_PIN], config[CONF_GDO2_PIN],
+        config[CONF_CSN_PIN], config[CONF_GDO0_PIN], config[CONF_GD02_PIN],
         config[CONF_BANDWIDTH], config[CONF_FREQUENCY]
     )
     await cg.register_component(var, config)
