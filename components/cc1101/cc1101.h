@@ -1,7 +1,7 @@
 #pragma once
 
 #include "esphome.h"
-#include <ELECHOUSE_CC1101_SRC_DRV.h>
+#include "cc1101.h"  // tua biblioteca nativa do repositório
 
 class CC1101Component : public esphome::Component {
  public:
@@ -10,27 +10,29 @@ class CC1101Component : public esphome::Component {
         bandwidth_(bandwidth), frequency_(frequency) {}
 
   void setup() override {
-    ELECHOUSE_cc1101.setSpiPin(sck_, miso_, mosi_, csn_);
-    ELECHOUSE_cc1101.init();
-    ELECHOUSE_cc1101.setMHZ(frequency_);
-    ELECHOUSE_cc1101.setRxBW(bandwidth_);
-    ELECHOUSE_cc1101.SetRx();
+    cc1101.set_pins(sck_, miso_, mosi_, csn_, gdo0_, gdo2_);
+    cc1101.setup();
+    cc1101.set_rx_bandwidth(bandwidth_);
+    cc1101.set_carrier_freq_MHz(frequency_);
+    cc1101.set_receive();  // coloca em modo recepção por padrão
   }
 
   void beginTransmission() {
-    ELECHOUSE_cc1101.SetTx();
+    cc1101.set_transmit();  // muda para modo de transmissão
   }
 
   void endTransmission() {
-    ELECHOUSE_cc1101.SetRx();
+    cc1101.set_receive();   // volta a escutar
   }
 
  protected:
   int sck_, miso_, mosi_, csn_, gdo0_, gdo2_;
   float bandwidth_;
   float frequency_;
+  CC1101 cc1101;
 };
 
+// helper para usar em lambda
 CC1101Component *get_cc1101(CC1101Component *comp) {
   return comp;
 }
