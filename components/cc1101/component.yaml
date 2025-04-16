@@ -8,3 +8,14 @@ libraries:
   - "SmartRC-CC1101-Driver-Lib"
 includes:
   - cc1101_component.h
+
+config_schema:
+  id: cc1101::CC1101Component
+  sck_pin: int
+  miso_pin: int
+  mosi_pin: int
+  cs_pin: int
+  gdo0_pin: int
+  gdo2_pin: int
+  bandwidth_khz: float
+  freq_mhz: float
