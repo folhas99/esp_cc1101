@@ -1,0 +1,9 @@
+name: "CC1101 Transceiver"
+description: "Simplified CC1101 integration for ESPHome using SmartRC-CC1101-Driver-Lib"
+files:
+  - "cc1101.h"
+includes:
+  - cc1101.h
+libraries:
+  - SPI
+  - "SmartRC-CC1101-Driver-Lib"
