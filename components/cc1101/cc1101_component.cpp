@@ -7,11 +7,11 @@ namespace cc1101 {
 
 static const char *const TAG = "cc1101";
 
-void CC1101Component::set_pins(int sck, int miso, int mosi, int cs, int gdo0) {
+void CC1101Component::set_pins(int sck, int miso, int mosi, int csn, int gdo0) {
   sck_ = sck;
   miso_ = miso;
   mosi_ = mosi;
-  cs_ = cs;
+  csn_ = csn;
   gdo0_ = gdo0;
 }
 
@@ -25,7 +25,7 @@ void CC1101Component::set_frequency(float mhz) {
 
 void CC1101Component::setup() {
   pinMode(gdo0_, OUTPUT);
-  ELECHOUSE_cc1101.addSpiPin(sck_, miso_, mosi_, cs_, module_);
+  ELECHOUSE_cc1101.addSpiPin(sck_, miso_, mosi_, csn_, module_);
   ELECHOUSE_cc1101.setModul(module_);
   ELECHOUSE_cc1101.Init();
   ELECHOUSE_cc1101.setRxBW(bandwidth_khz_);
