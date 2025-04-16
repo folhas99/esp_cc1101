@@ -17,5 +17,5 @@ config_schema:
   cs_pin: int
   gdo0_pin: int
   gdo2_pin: int
-  bandwidth_khz: float
-  freq_mhz: float
+  bandwidth: float
+  frequency: float
