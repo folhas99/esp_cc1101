@@ -7,7 +7,7 @@ external_components:
 
 esphome:
   name: comando
-  friendly_name: ComandoBackup
+  friendly_name: Comando
 
 esp32:
   board: esp32dev
