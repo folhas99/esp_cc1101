@@ -1,38 +1,37 @@
 #pragma once
 
-#include "esphome.h"
-#include "cc1101.h"  // tua biblioteca nativa do repositório
+#include <ELECHOUSE_CC1101_SRC_DRV.h>
 
-class CC1101Component : public esphome::Component {
+#include "esphome/core/component.h"
+#include <esphome/core/hal.h>
+
+namespace esphome {
+namespace cc1101 {
+
+class CC1101 : public Component {
+
  public:
-  CC1101Component(int sck, int miso, int mosi, int csn, int gdo0, int gdo2, float bandwidth, float frequency)
-      : sck_(sck), miso_(miso), mosi_(mosi), csn_(csn), gdo0_(gdo0), gdo2_(gdo2),
-        bandwidth_(bandwidth), frequency_(frequency) {}
+   CC1101(InternalGPIOPin *sck_pin, InternalGPIOPin *miso_pin, InternalGPIOPin *mosi_pin, InternalGPIOPin *csn_pin, InternalGPIOPin *gdo0_pin);
+ 
+   void set_bandwidth(float bandwidth);
+   void set_frequency(float frequency);
+ 
+   void setup() override;
+   void dump_config() override;
 
-  void setup() override {
-    cc1101.set_pins(sck_, miso_, mosi_, csn_, gdo0_, gdo2_);
-    cc1101.setup();
-    cc1101.set_rx_bandwidth(bandwidth_);
-    cc1101.set_carrier_freq_MHz(frequency_);
-    cc1101.set_receive();  // coloca em modo recepção por padrão
-  }
+  protected:
+  InternalGPIOPin *SCK_;
+  InternalGPIOPin *MISO_;
+  InternalGPIOPin *MOSI_;
+  InternalGPIOPin *CSN_;
+  InternalGPIOPin *GDO0_;
 
-  void beginTransmission() {
-    cc1101.set_transmit();  // muda para modo de transmissão
-  }
-
-  void endTransmission() {
-    cc1101.set_receive();   // volta a escutar
-  }
-
- protected:
-  int sck_, miso_, mosi_, csn_, gdo0_, gdo2_;
   float bandwidth_;
   float frequency_;
-  CC1101 cc1101;
+  
+  float _moduleNumber;
 };
 
-// helper para usar em lambda
-CC1101Component *get_cc1101(CC1101Component *comp) {
-  return comp;
-}
+}  // namespace cc1101
+}  // namespace esphome
+
