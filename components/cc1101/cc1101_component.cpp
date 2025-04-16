@@ -1,6 +1,6 @@
 #include "cc1101_component.h"
 #include "esphome/core/log.h"
-#include <ELECHOUSE_CC1101_SRC_DRV.h>
+#include <ELECHOUSE_CC1101.h>  // Biblioteca legacy correta
 
 namespace esphome {
 namespace cc1101 {
@@ -38,7 +38,7 @@ void CC1101Component::send_byron(uint32_t address, uint8_t command) {
   ESP_LOGI(TAG, "Sending ByronSX: address=0x%08X, command=0x%02X", address, command);
   ELECHOUSE_cc1101.setModul(module_);
   ELECHOUSE_cc1101.SetTx();
-  ELECHOUSE_cc1101.Send0(address, command);  // Requer compatibilidade com a lib
+  ELECHOUSE_cc1101.Send0(address, command);  // Envio genérico
   ELECHOUSE_cc1101.SetRx();
 }
 
