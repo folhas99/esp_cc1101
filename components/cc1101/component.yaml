@@ -8,3 +8,6 @@ includes:
 libraries:
   - "SmartRC-CC1101-Driver-Lib"
   - "SPI"
+platformio_options:
+  lib_deps:
+    - elechouse/ELECHOUSE CC1101 Driver Lib
