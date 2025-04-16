@@ -7,13 +7,13 @@ namespace cc1101 {
 class CC1101Component : public Component {
  public:
   void setup() override;
-  void set_pins(int sck, int miso, int mosi, int csn, int gdo0);
+  void set_pins(int sck, int miso, int mosi, int cs, int gdo0);
   void set_bandwidth(float bw);
   void set_frequency(float mhz);
-  void send_byron(uint32_t address, uint8_t command);
+  void send_byron(uint32_t address, uint8_t command);  // ← Tornado público
 
  protected:
-  int sck_, miso_, mosi_, csn_, gdo0_;
+  int sck_, miso_, mosi_, cs_, gdo0_;
   float bandwidth_khz_, freq_mhz_;
   int module_ = 0;
 };
