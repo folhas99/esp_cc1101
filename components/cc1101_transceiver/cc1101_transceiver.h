@@ -1,8 +1,9 @@
+#pragma once
 
-#include "esphome.h"
+#include "esphome/core/component.h"
 #include <ELECHOUSE_CC1101_SRC_DRV.h>
 
-class CC1101Component : public Component {
+class CC1101Component : public esphome::Component {
  public:
   CC1101Component(int sck, int miso, int mosi, int csn, int gdo0, int gdo2, float mhz, int bandwidth)
       : sck_(sck), miso_(miso), mosi_(mosi), csn_(csn), gdo0_(gdo0), gdo2_(gdo2),

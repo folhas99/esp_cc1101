@@ -1,1 +1,2 @@
-// Este ficheiro pode estar vazio ou conter código futuro.
+// cc1101_transceiver.cpp
+#include "cc1101_transceiver.h"

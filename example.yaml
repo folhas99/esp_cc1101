@@ -1,37 +1,42 @@
-
-external_components:
-  - source:
-      type: local
-      path: "./cc1101-esphome"
-    components: [cc1101_transceiver]
-
 esphome:
   name: comando
   friendly_name: Comando
+  libraries:
+    - SPI
+    - "SmartRC-CC1101-Driver-Lib"
 
 esp32:
   board: esp32dev
   framework:
     type: arduino
 
+external_components:
+  - source:
+      type: local
+      path: ./components
+    components: [cc1101_transceiver]
+
 logger:
 
 api:
   encryption:
-    key: "TUA_CHAVE_AQUI"
+    key: "YourKey"
 
 ota:
-  password: "TUA_PASSWORD_AQUI"
+  platform: esphome
+  password: "YourPASSWORD"
+
+web_server:
+  port: 80
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
   power_save_mode: NONE
   fast_connect: true
-
   ap:
     ssid: "Comando Fallback Hotspot"
-    password: "ygLCE3gnAzK1"
+    password: "YourPASSWORD"
 
 cc1101_transceiver:
   id: transciver
@@ -50,11 +55,12 @@ remote_transmitter:
 
 remote_receiver:
   pin: GPIO33
+  #dump: raw
   dump: byronsx
 
 button:
   - platform: template
-    name: "Portão"
+    name: "Portao"
     on_press:
       - lambda: |-
           id(transciver).beginTransmission();
@@ -67,16 +73,16 @@ button:
       - lambda: |-
           id(transciver).endTransmission();
 
-  - platform: template
-    name: "Garagem"
-    on_press:
-      - lambda: |-
-          id(transciver).beginTransmission();
-      - remote_transmitter.transmit_byronsx:
-          address: 0x000000BC
-          command: 0x09
-          repeat:
-            times: 10
-            wait_time: 5ms
-      - lambda: |-
-          id(transciver).endTransmission();
+#  - platform: template
+#    name: "Garagem"
+#    on_press:
+#      - lambda: |-
+#          id(transciver).beginTransmission();
+#      - remote_transmitter.transmit_byronsx:
+#          address: 0x000000BC
+#          command: 0x09
+#          repeat:
+#            times: 10
+#            wait_time: 5ms
+#      - lambda: |-
+#          id(transciver).endTransmission();

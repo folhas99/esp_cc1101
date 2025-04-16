@@ -1,10 +1,9 @@
-
-from esphome.components import sensor
-import esphome.config_validation as cv
 import esphome.codegen as cg
+import esphome.config_validation as cv
+from esphome import automation
+from esphome.const import CONF_ID
 
-cc1101_ns = cg.esphome_ns.namespace('cc1101_transceiver')
-CC1101Component = cc1101_ns.class_('CC1101Component', cg.Component)
+CC1101Component = cg.global_ns.class_('CC1101Component', cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(CC1101Component),
@@ -19,7 +18,7 @@ CONFIG_SCHEMA = cv.Schema({
 })
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[cv.GenerateID()],
+    var = cg.new_Pvariable(config[CONF_ID],
                            config["sck"], config["miso"], config["mosi"],
                            config["csn"], config["gdo0"], config["gdo2"],
                            config["frequency"], config["bandwidth"])
