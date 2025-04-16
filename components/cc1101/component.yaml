@@ -1,9 +1,10 @@
-name: "CC1101 Transceiver"
-description: "Simplified CC1101 integration for ESPHome using SmartRC-CC1101-Driver-Lib"
+name: "CC1101 TX Only"
+description: "ESPHome component for CC1101 to send RF commands (ByronSX only)"
 files:
-  - "cc1101.h"
+  - "cc1101_component.h"
+  - "cc1101_component.cpp"
 includes:
-  - cc1101.h
+  - cc1101_component.h
 libraries:
-  - SPI
   - "SmartRC-CC1101-Driver-Lib"
+  - "SPI"
