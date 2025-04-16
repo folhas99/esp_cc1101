@@ -1,0 +1,8 @@
+
+{
+  "dependencies": [
+    {
+      "name": "LSatan/SmartRC-CC1101-Driver-Lib"
+    }
+  ]
+}

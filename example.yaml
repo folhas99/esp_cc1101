@@ -1,0 +1,82 @@
+
+external_components:
+  - source:
+      type: local
+      path: "./cc1101-esphome"
+    components: [cc1101_transceiver]
+
+esphome:
+  name: comando
+  friendly_name: ComandoBackup
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+logger:
+
+api:
+  encryption:
+    key: "TUA_CHAVE_AQUI"
+
+ota:
+  password: "TUA_PASSWORD_AQUI"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: NONE
+  fast_connect: true
+
+  ap:
+    ssid: "Comando Fallback Hotspot"
+    password: "ygLCE3gnAzK1"
+
+cc1101_transceiver:
+  id: transciver
+  sck: 18
+  miso: 19
+  mosi: 23
+  csn: 5
+  gdo0: 32
+  gdo2: 33
+  frequency: 433.92
+  bandwidth: 200
+
+remote_transmitter:
+  pin: GPIO32
+  carrier_duty_percent: 100%
+
+remote_receiver:
+  pin: GPIO33
+  dump: byronsx
+
+button:
+  - platform: template
+    name: "Portão"
+    on_press:
+      - lambda: |-
+          id(transciver).beginTransmission();
+      - remote_transmitter.transmit_byronsx:
+          address: 0x000000BC
+          command: 0x05
+          repeat:
+            times: 10
+            wait_time: 5ms
+      - lambda: |-
+          id(transciver).endTransmission();
+
+  - platform: template
+    name: "Garagem"
+    on_press:
+      - lambda: |-
+          id(transciver).beginTransmission();
+      - remote_transmitter.transmit_byronsx:
+          address: 0x000000BC
+          command: 0x09
+          repeat:
+            times: 10
+            wait_time: 5ms
+      - lambda: |-
+          id(transciver).endTransmission();
