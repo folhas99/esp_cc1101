@@ -1,5 +1,6 @@
 #pragma once
 #include "esphome/core/component.h"
+#include <ELECHOUSE_CC1101.h>  // Biblioteca legacy correta
 
 namespace esphome {
 namespace cc1101 {
