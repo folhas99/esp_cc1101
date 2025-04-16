@@ -6,6 +6,16 @@ namespace cc1101 {
 
 static const char *const TAG = "cc1101";
 
+void CC1101Component::set_pins(int sck, int miso, int mosi, int csn, int gdo0, int gdo2) {
+  sck_ = sck;
+  miso_ = miso;
+  mosi_ = mosi;
+  csn_ = csn;
+  gdo0_pin_ = gdo0;
+  gdo2_pin_ = gdo2;
+  module_number_ = CC1101Component::cc1101_module_counter++;
+}
+
 void CC1101Component::setup() {
   ESP_LOGI(TAG, "Inicializando CC1101...");
 #ifdef USE_ESP32
@@ -49,7 +59,7 @@ void CC1101Component::end_transmission() {
 #endif
   ELECHOUSE_cc1101.setModul(module_number_);
   ELECHOUSE_cc1101.SetRx();
-  ELECHOUSE_cc1101.SetRx();  // sim, duas vezes
+  ELECHOUSE_cc1101.SetRx();
 }
 
 void CC1101Component::set_freq(float freq) {

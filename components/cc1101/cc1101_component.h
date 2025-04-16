@@ -9,18 +9,7 @@ namespace cc1101 {
 
 class CC1101Component : public PollingComponent, public sensor::Sensor {
  public:
-  CC1101Component(int sck, int miso, int mosi, int csn, int gdo0, int gdo2, float bandwidth_khz, float freq_mhz)
-      : PollingComponent(100),
-        sck_(sck),
-        miso_(miso),
-        mosi_(mosi),
-        csn_(csn),
-        gdo0_pin_(gdo0),
-        gdo2_pin_(gdo2),
-        bandwidth_khz_(bandwidth_khz),
-        freq_mhz_(freq_mhz),
-        rssi_on_(true),
-        module_number_(CC1101Component::cc1101_module_counter++) {}
+  CC1101Component() : PollingComponent(100) {}
 
   void setup() override;
   void update() override;
@@ -31,13 +20,17 @@ class CC1101Component : public PollingComponent, public sensor::Sensor {
   void set_freq(float freq);
   void set_bw(float bw);
 
+  void set_pins(int sck, int miso, int mosi, int csn, int gdo0, int gdo2);
+  void set_bandwidth(float bw) { bandwidth_khz_ = bw; }
+  void set_frequency(float freq) { freq_mhz_ = freq; }
+
   static int cc1101_module_counter;
 
  protected:
   int sck_, miso_, mosi_, csn_, gdo0_pin_, gdo2_pin_;
   float bandwidth_khz_;
   float freq_mhz_;
-  bool rssi_on_;
+  bool rssi_on_ = true;
   int module_number_;
   int last_rssi_ = 0;
 };
