@@ -13,8 +13,8 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Required("cs_pin"): cv.gpio_pin,
     cv.Required("gdo0_pin"): cv.gpio_pin,
     cv.Required("gdo2_pin"): cv.gpio_pin,
-    cv.Required("bandwidth_khz"): cv.float_,
-    cv.Required("freq_mhz"): cv.float_,
+    cv.Required("bandwidth"): cv.float_,
+    cv.Required("frequency"): cv.float_,
 })
 
 async def to_code(config):
@@ -31,5 +31,5 @@ async def to_code(config):
         config["gdo2_pin"].number
     ))
 
-    cg.add(var.set_bandwidth(config["bandwidth_khz"]))
-    cg.add(var.set_frequency(config["freq_mhz"]))
+    cg.add(var.set_bandwidth(config["bandwidth"]))
+    cg.add(var.set_frequency(config["frequency"]))
