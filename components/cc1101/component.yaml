@@ -6,6 +6,6 @@ files:
 includes:
   - cc1101_component.h
 libraries:
-  - "ELECHOUSE CC1101 Driver Lib"
+  - 4625  # ID da ELECHOUSE CC1101 Driver Lib no PlatformIO
   - "SmartRC-CC1101-Driver-Lib"
   - "SPI"
