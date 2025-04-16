@@ -6,11 +6,11 @@ namespace cc1101 {
 
 static const char *const TAG = "cc1101";
 
-void CC1101Component::set_pins(int sck, int miso, int mosi, int csn, int gdo0, int gdo2) {
+void CC1101Component::set_pins(int sck, int miso, int mosi, int cs, int gdo0, int gdo2) {
   sck_ = sck;
   miso_ = miso;
   mosi_ = mosi;
-  csn_ = csn;
+  cs_ = cs;
   gdo0_pin_ = gdo0;
   gdo2_pin_ = gdo2;
   module_number_ = CC1101Component::cc1101_module_counter++;
@@ -18,13 +18,10 @@ void CC1101Component::set_pins(int sck, int miso, int mosi, int csn, int gdo0, i
 
 void CC1101Component::setup() {
   ESP_LOGI(TAG, "Inicializando CC1101...");
-#ifdef USE_ESP32
   pinMode(this->gdo0_pin_, OUTPUT);
   pinMode(this->gdo2_pin_, INPUT);
-#else
-  pinMode(this->gdo0_pin_, INPUT);
-#endif
-  ELECHOUSE_cc1101.addSpiPin(sck_, miso_, mosi_, csn_, module_number_);
+
+  ELECHOUSE_cc1101.addSpiPin(sck_, miso_, mosi_, cs_, module_number_);
   ELECHOUSE_cc1101.setModul(module_number_);
   ELECHOUSE_cc1101.Init();
   ELECHOUSE_cc1101.setRxBW(bandwidth_khz_);
@@ -46,17 +43,13 @@ void CC1101Component::update() {
 void CC1101Component::begin_transmission() {
   ELECHOUSE_cc1101.setModul(module_number_);
   ELECHOUSE_cc1101.SetTx();
-#ifndef USE_ESP32
   pinMode(gdo0_pin_, OUTPUT);
   noInterrupts();
-#endif
 }
 
 void CC1101Component::end_transmission() {
-#ifndef USE_ESP32
   interrupts();
   pinMode(gdo0_pin_, INPUT);
-#endif
   ELECHOUSE_cc1101.setModul(module_number_);
   ELECHOUSE_cc1101.SetRx();
   ELECHOUSE_cc1101.SetRx();
