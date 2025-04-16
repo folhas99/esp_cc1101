@@ -5,6 +5,6 @@ files:
   - "cc1101_component.cpp"
 includes:
   - cc1101_component.h
-platformio_options:
-  lib_deps:
-    - elechouse/ELECHOUSE CC1101 Driver Lib
+libraries:
+  - "SmartRC-CC1101-Driver-Lib"
+  - "SPI"
