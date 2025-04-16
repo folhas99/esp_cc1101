@@ -6,5 +6,6 @@ files:
 includes:
   - cc1101_component.h
 libraries:
+  - "ELECHOUSE CC1101 Driver Lib"
   - "SmartRC-CC1101-Driver-Lib"
   - "SPI"
