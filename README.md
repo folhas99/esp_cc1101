@@ -1,4 +1,4 @@
-ESP32 with CC1001 transceiver library
+ESPHome with CC1001 transceiver library
 
 Based on:
 
