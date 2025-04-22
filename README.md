@@ -1,6 +1,10 @@
 ESP32 with CC1001 transceiver library
 
-Based on https://github.com/dbuezas/esphome-cc1101
+Based on:
+
+https://github.com/dbuezas/esphome-cc1101
+
+https://github.com/nopnop2002/esp-idf-cc1101/blob/main/README.md
 
 # Wirering
 
